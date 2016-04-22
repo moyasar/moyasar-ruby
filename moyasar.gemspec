@@ -7,11 +7,11 @@ Gem::Specification.new do |spec|
   spec.name          = "moyasar"
   spec.version       = Moyasar::VERSION
   spec.authors       = ["Abdulaziz AlShetwi"]
-  spec.email         = ["ecleeld@gmail.com"]
+  spec.email         = ["root@moyasar.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Ruby bindings for Moyasar Payment service}
+  spec.description   = %q{Ruby bindings for Moyasar Payment service.}
+  spec.homepage      = "https://moyasar.com/docs/api"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
