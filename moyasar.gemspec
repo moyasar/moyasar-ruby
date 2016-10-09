@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "moyasar"
   spec.version       = Moyasar::VERSION
   spec.authors       = ["Abdulaziz AlShetwi"]
-  spec.email         = ["root@moyasar.com"]
+  spec.email         = ["developers@moyasar.com"]
 
   spec.summary       = %q{Ruby bindings for Moyasar Payment service}
   spec.description   = %q{Ruby bindings for Moyasar Payment service.}
@@ -27,7 +27,9 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.10"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "bundler"# , "~> 1.10"
+  spec.add_development_dependency "rake"# , "~> 10.0"
   spec.add_development_dependency "minitest"
+  
+  spec.required_ruby_version = '>= 2.0.0'
 end
