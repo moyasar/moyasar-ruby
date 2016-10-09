@@ -24,6 +24,8 @@ require "moyasar/sources/credit_card"
 require "moyasar/errors/moyasar_error"
 require "moyasar/errors/authentication_error"
 require "moyasar/errors/invalid_request_error"
+require "moyasar/errors/account_inactive_error"
+require "moyasar/errors/api_error"
 
 module Moyasar
   @api_base    = "https://apimig.moyasar.com"
@@ -32,8 +34,10 @@ module Moyasar
   @client = Moyasar::HTTPClient.new(@api_base)
 
   Errors = {
-    'authentication_error'  => Moyasar::AuthenticationError,
-    'invalid_request_error' => Moyasar::InvalidRequestError,
+    'authentication_error'   => Moyasar::AuthenticationError,
+    'invalid_request_error'  => Moyasar::InvalidRequestError,
+    'account_inactive_error' => Moyasar::AccountInactiveError,
+    'api_error'              => Moyasar::APIError,
   }
 
   class << self
@@ -41,7 +45,6 @@ module Moyasar
     attr_reader :api_base, :api_version
 
     def request(method, url, key: nil, params: {}, headers: {})
-      # TODO: handle exceptions
       unless key ||= @api_key
         raise AuthenticationError.new("No API Key provided.")
       end
