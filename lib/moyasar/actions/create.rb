@@ -18,6 +18,6 @@ module Moyasar
       module InstanceMethods
       end
 
-    end    
+    end
   end
 end

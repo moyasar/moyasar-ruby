@@ -1,17 +1,16 @@
 module Moyasar
   class HTTPClient
-
     METHOD_CLASS = {
       head:   Net::HTTP::Head,
       get:    Net::HTTP::Get,
       post:   Net::HTTP::Post,
       put:    Net::HTTP::Put,
       delete: Net::HTTP::Delete
-    }
+    }.freeze
 
     DEFAULT_HEADERS = {
       'Content-Type' => 'application/json'
-    }
+    }.freeze
 
     def initialize(endpoint)
       uri = URI.parse(endpoint)
@@ -30,9 +29,7 @@ module Moyasar
         request.body = params.to_json
       end
 
-      unless key.nil?
-        request.basic_auth(key, '')
-      end
+      request.basic_auth(key, '') unless key.nil?
 
       @http.request(request)
     end
@@ -50,7 +47,7 @@ module Moyasar
 
     def encode_path_params(path, params)
       encoded = URI.encode_www_form(params)
-      [path, encoded].join("?")
+      [path, encoded].join('?')
     end
 
   end

@@ -2,8 +2,8 @@ module Moyasar
   module Actions
     module Request
 
-      def self.included cls
-        cls.extend Request
+      def self.included(klass)
+        klass.extend Request
       end
 
       def request(method, url, params: {}, headers: {})

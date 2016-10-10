@@ -6,23 +6,23 @@ module Moyasar
     include Moyasar::Actions::List
     include Moyasar::Actions::Fetch
     include Moyasar::Actions::Update
-
-    def self.class_name
-      self.name.split('::')[-1]
-    end
-    
-    def self.resource_name
-      "#{class_name.downcase}s"
-    end
-
-    def self.resource_url
-      if self == Resource
-        raise NotImplementedError.new('Resource is an abstract class.  You should perform actions on its subclasses (Payment, Invoice, etc.)')
-      end
-      "/#{Moyasar.api_version}/#{CGI.escape(resource_name)}"
-    end
     
     class << self
+
+      def class_name
+        name.split('::')[-1]
+      end
+
+      def resource_name
+        "#{class_name.downcase}s"
+      end
+
+      def resource_url
+        if self == Resource
+          raise NotImplementedError.new('Resource is an abstract class.  You should perform actions on its subclasses (Payment, Invoice, etc.)')
+        end
+        "/#{Moyasar.api_version}/#{CGI.escape(resource_name)}"
+      end
 
       private
 

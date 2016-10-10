@@ -8,7 +8,7 @@ module Moyasar
         klass.send :prepend, Initializer
       end
 
-      module ClassMethods        
+      module ClassMethods
       end
   
       module InstanceMethods
@@ -29,6 +29,6 @@ module Moyasar
         end
       end
 
-    end    
+    end
   end
 end

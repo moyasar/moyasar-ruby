@@ -11,7 +11,7 @@ module Moyasar
         # TODO should accept pagination and query options
         def list(attrs = {})
           response = request(:get, list_url, params: attrs)
-          response.body[resource_name].map {|resource| new(resource)}
+          response.body[resource_name].map { |resource| new(resource) }
         end
         alias all list
       end
@@ -19,6 +19,6 @@ module Moyasar
       module InstanceMethods
       end
 
-    end    
+    end
   end
 end

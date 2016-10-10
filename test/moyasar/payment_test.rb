@@ -12,19 +12,19 @@ class PaymentTest < Minitest::Test
     assert_instance_of Moyasar::Payment, payment
     assert_equal 'initiated', payment.status
   end
-  
+
   def test_list_should_return_list_of_payment_objects
     payments = Moyasar::Payment.list
 
     assert_instance_of Array, payments
     assert_instance_of Moyasar::Payment, payments.first
   end
-  
+
   def test_list_should_return_empty_array_if_there_is_no_payments
     Moyasar.api_key = EMPTY_ACCOUNT_TEST_KEY
     assert_equal [], Moyasar::Payment.list
   end
-  
+
   def test_find_should_return_payemnt_object_if_id_is_correct
     payment_from_list = Moyasar::Payment.list.first
     payment = Moyasar::Payment.find(payment_from_list.id)
@@ -32,7 +32,7 @@ class PaymentTest < Minitest::Test
     # assert_equal payment_from_list, payment
     assert_equal payment_from_list.id, payment.id
   end
-  
+
   def test_update_should_update_payment_description
     payment = Moyasar::Payment.list.first
 

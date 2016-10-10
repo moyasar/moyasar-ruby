@@ -1,6 +1,5 @@
 module Moyasar
   class Payment < Resource
-
     attr_reader :id, :status, :amount, :currency, :source, :created_at, :modified_at
     attr_accessor :description
 
