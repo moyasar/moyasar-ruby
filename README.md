@@ -1,8 +1,14 @@
-# Moyasar Ruby wrapper
+# moyasar-ruby
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/moyasar`. To experiment with that code, run `bin/console` for an interactive prompt.
+Moyasar Ruby language wrapper
 
-TODO: Delete this and the text above, and describe your gem
+## Documentation
+
+See the [Ruby API docs](https://moyasar.com/docs/api/?ruby).
+
+### Requirements
+
+* Ruby 2.0 or above.
 
 ## Installation
 
@@ -22,7 +28,19 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+``` ruby
+require "moyasar"
+Moyasar.api_key = "sk_test_..."
+
+# list payments
+Moyasar::Payment.list()
+
+# fetch single charge
+Moyasar::Payment.fetch("760878ec-d1d3-5f72-9056-191683f55872")
+
+# create an invoice
+Moyasar::Invoice.create({amount: 2500, description: "Monthly subscription"})
+```
 
 ## Development
 
