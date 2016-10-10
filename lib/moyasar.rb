@@ -30,7 +30,7 @@ require 'moyasar/errors/api_connection_error'
 require 'moyasar/errors/api_error'
 
 module Moyasar
-  @api_base    = 'https://apimig.moyasar.com'
+  @api_base    = 'https://api.moyasar.com'
   @api_version = 'v1'
 
   @client = Moyasar::HTTPClient.new(@api_base)

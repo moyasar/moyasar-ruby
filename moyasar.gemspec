@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Abdulaziz AlShetwi']
   spec.email         = ['developers@moyasar.com']
 
-  spec.summary       = %q{Ruby bindings for Moyasar Payment service}
-  spec.description   = %q{Ruby bindings for Moyasar Payment service.}
-  spec.homepage      = 'https://moyasar.com/docs/api'
+  spec.summary       = %q{Ruby wrpper library for Moyasar Payment service}
+  spec.description   = %q{Ruby wrpper library for Moyasar Payment service}
+  spec.homepage      = 'https://moyasar.com/docs/api?ruby'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
