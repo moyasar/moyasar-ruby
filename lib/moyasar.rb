@@ -25,6 +25,8 @@ require 'moyasar/errors/moyasar_error'
 require 'moyasar/errors/authentication_error'
 require 'moyasar/errors/invalid_request_error'
 require 'moyasar/errors/account_inactive_error'
+require 'moyasar/errors/rate_limit_error'
+require 'moyasar/errors/api_connection_error'
 require 'moyasar/errors/api_error'
 
 module Moyasar
@@ -37,8 +39,10 @@ module Moyasar
     'authentication_error'   => Moyasar::AuthenticationError,
     'invalid_request_error'  => Moyasar::InvalidRequestError,
     'account_inactive_error' => Moyasar::AccountInactiveError,
+    'rate_limit_error'       => Moyasar::RateLimitError,
+    'api_connection_error'   => Moyasar::APIConnectionError,
     'api_error'              => Moyasar::APIError,
-  }
+  }.freeze
 
   class << self
     attr_accessor :api_key
