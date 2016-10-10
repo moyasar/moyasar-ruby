@@ -7,5 +7,5 @@ require 'minitest/reporters'
 reporter_options = { color: true }
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(reporter_options)]
 
-TEST_KEY = ENV.fetch('MOYASAR_RUBY_WRAPPER_TEST_PRIVATE_KEY')
-EMPTY_ACCOUNT_TEST_KEY = ENV.fetch('MOYASAR_RUBY_WRAPPER_EMPTY_ACCOUNT_TEST_KEY')
+TEST_KEY = ENV.fetch('MOYASAR_TEST_SECRET_KEY')
+EMPTY_ACCOUNT_TEST_KEY = ENV.fetch('MOYASAR_TEST_EMPTY_ACCOUNT_TEST_KEY')
