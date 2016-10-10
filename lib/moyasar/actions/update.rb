@@ -11,6 +11,7 @@ module Moyasar
       end
 
       module InstanceMethods
+
         def update(attrs = {})
           response = request(:put, update_url(id), params: attrs)
 

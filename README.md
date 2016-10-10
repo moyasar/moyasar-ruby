@@ -35,11 +35,11 @@ Moyasar.api_key = "sk_test_..."
 # list payments
 Moyasar::Payment.list()
 
-# fetch single charge
+# fetch single payment
 Moyasar::Payment.fetch("760878ec-d1d3-5f72-9056-191683f55872")
 
 # create an invoice
-Moyasar::Invoice.create({amount: 2500, description: "Monthly subscription"})
+Moyasar::Invoice.create(amount: 2500, currency: 'SAR', description: 'Monthly subscription')
 ```
 
 ## Development
@@ -47,6 +47,7 @@ Moyasar::Invoice.create({amount: 2500, description: "Monthly subscription"})
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
 
 ## Contributing
 
