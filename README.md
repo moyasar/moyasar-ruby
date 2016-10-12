@@ -6,7 +6,7 @@ Moyasar Ruby language wrapper
 
 See the [Ruby API docs](https://moyasar.com/docs/api/?ruby).
 
-### Requirements
+## Requirements
 
 * Ruby 2.0 or above.
 
