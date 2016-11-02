@@ -8,7 +8,7 @@ See the [Ruby API docs](https://moyasar.com/docs/api/?ruby).
 
 ## Requirements
 
-* Ruby 2.0 or above.
+* Ruby 2.1 or above.
 
 ## Installation
 
