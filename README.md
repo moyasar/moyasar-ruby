@@ -1,5 +1,9 @@
 # moyasar-ruby
 
+[![Gem Version](https://badge.fury.io/rb/moyasar.svg)](http://badge.fury.io/rb/moyasar)
+[![Build Status](https://travis-ci.org/moyasar/moyasar-ruby.svg?branch=master)](https://travis-ci.org/moyasar/moyasar-ruby)
+
+
 Moyasar Ruby language wrapper
 
 ## Documentation
