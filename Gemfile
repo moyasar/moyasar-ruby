@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
+  gem 'webmock'
   gem 'minitest-reporters'
   gem 'guard' # NOTE: this is necessary in newer versions
   gem 'guard-minitest'

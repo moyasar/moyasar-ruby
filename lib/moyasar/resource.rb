@@ -19,7 +19,7 @@ module Moyasar
 
       def resource_url
         if self == Resource
-          raise NotImplementedError.new('Resource is an abstract class.  You should perform actions on its subclasses (Payment, Invoice, etc.)')
+          raise NotImplementedError.new('Resource is an abstract class. You should perform actions on its subclasses (Payment, Invoice, etc.)')
         end
         "/#{Moyasar.api_version}/#{CGI.escape(resource_name)}"
       end

@@ -1,0 +1,5 @@
+status: 200
+body: '{"invoices":[{"id":"1e97d5cc-169c-4dd9-9a8d-55b2d4c9ea7b","status":"initiated","amount":1400,"currency":"SAR","description":"Different
+        discription","amount_format":"14.00 SAR","url":"https://dashboard.moyasar.com/invoices/1e97d5cc-169c-4dd9-9a8d-55b2d4c9ea7b","created_at":"2016-09-01T18:45:13.630Z","updated_at":"2016-10-10T15:13:21.431Z"},{"id":"70b27156-4557-49e8-933d-a52eceb04326","status":"initiated","amount":128000,"currency":"SAR","description":"Esspresso
+        Machine","amount_format":"1,280.00 SAR","url":"https://dashboard.moyasar.com/invoices/70b27156-4557-49e8-933d-a52eceb04326","created_at":"2016-09-01T18:24:59.766Z","updated_at":"2016-09-01T18:24:59.766Z"},{"id":"8ba6bfed-3232-4e2f-83dd-39778388abaa","status":"initiated","amount":30000,"currency":"SAR","description":"painting","amount_format":"300.00
+        SAR","url":"https://dashboard.moyasar.com/invoices/8ba6bfed-3232-4e2f-83dd-39778388abaa","created_at":"2016-08-28T18:22:37.935Z","updated_at":"2016-08-28T18:22:37.935Z"}],"meta":{"current_page":1,"next_page":null,"prev_page":null,"total_pages":1,"total_count":3}}'
