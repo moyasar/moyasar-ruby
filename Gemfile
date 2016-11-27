@@ -6,6 +6,7 @@ gemspec
 group :development do
   gem 'webmock'
   gem 'minitest-reporters'
-  gem 'guard' # NOTE: this is necessary in newer versions
-  gem 'guard-minitest'
+
+  # gem 'guard'
+  # gem 'guard-minitest'
 end
