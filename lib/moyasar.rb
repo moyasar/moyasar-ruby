@@ -1,7 +1,7 @@
 require 'uri'
+require 'cgi'
 require 'net/http'
 require 'json'
-require 'ostruct'
 
 require 'moyasar/version'
 require 'moyasar/http_client'
@@ -33,8 +33,6 @@ module Moyasar
   @api_base    = 'https://api.moyasar.com'
   @api_version = 'v1'
 
-  @client = Moyasar::HTTPClient.new(@api_base)
-
   Errors = {
     'authentication_error'   => Moyasar::AuthenticationError,
     'invalid_request_error'  => Moyasar::InvalidRequestError,
@@ -53,13 +51,15 @@ module Moyasar
         raise AuthenticationError.new('No API Key provided.')
       end
 
-      # puts method, url, key
-      response = @client.request_json(method, url, key, params, headers)
+      client = Moyasar::HTTPClient.new(@api_base)
+      response = client.request_json(method, url, key, params, headers)
       case response.code
       when 400..401
         error_data = response.body.merge({'http_code' => response.code})
         error = Errors[response.body['type']].new(error_data)
         raise error
+      when 500
+        raise APIError, "We had problem with Moyasar server."
       end
       response
     end
