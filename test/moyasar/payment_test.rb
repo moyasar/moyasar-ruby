@@ -13,6 +13,16 @@ class PaymentTest < Minitest::Test
     assert_equal 'initiated', payment.status
   end
 
+  def test_create_with_amount_less_than_100_cent_should_raise_validation_errror
+    err = assert_raises Moyasar::InvalidRequestError do |exception|
+      payment = Moyasar::Payment.create amount: 90, currency: 'SAR', description: 'Test',
+                                        source: {type: 'sadad', username: 'u3041555Xolp'}
+    end
+
+    assert_match /Validation Failed: amount must be greater than 99/, err.to_s
+    assert_match /Validation Failed: amount must be greater than 99/, err.message
+  end
+
   def test_list_should_return_list_of_payment_objects
     payments = Moyasar::Payment.list
 

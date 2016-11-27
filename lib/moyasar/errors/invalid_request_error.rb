@@ -4,7 +4,10 @@ module Moyasar
 
     def initialize(attrs = {})
       @errors = attrs['errors']
-      super
+
+      attrs['message'] = "#{attrs['message']}: #{@errors.keys.first} #{@errors.values.first.first}" if @errors.keys.count == 1
+      super(attrs)
     end
+
   end
 end
