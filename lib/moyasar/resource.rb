@@ -7,10 +7,6 @@ module Moyasar
     include Moyasar::Actions::Fetch
     include Moyasar::Actions::Update
 
-    def self.inherited(subclass)
-      include Moyasar::Actions::Refund if subclass.class_name == 'Payment'
-    end
-
     class << self
 
       def class_name
