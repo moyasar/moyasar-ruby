@@ -1,6 +1,6 @@
 module Moyasar
   class Payment < Resource
-    attr_reader :id, :status, :amount, :currency, :source, :created_at, :modified_at
+    attr_reader :id, :status, :amount, :currency, :source, :refunded, :refunded_at, :created_at, :modified_at
     attr_accessor :description
 
     def initialize(attrs = {})
@@ -21,6 +21,6 @@ module Moyasar
       end
 
     end
-    
+
   end
 end
