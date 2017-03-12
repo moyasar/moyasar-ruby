@@ -55,7 +55,7 @@ module Moyasar
       client = Moyasar::HTTPClient.new(@api_base)
       response = client.request_json(method, url, key, params, headers)
       case response.code
-      when 400..401
+      when 400..429
         error_data = response.body.merge({'http_code' => response.code})
         error = Errors[response.body['type']].new(error_data)
         raise error
