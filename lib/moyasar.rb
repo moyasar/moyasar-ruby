@@ -56,11 +56,11 @@ module Moyasar
       response = client.request_json(method, url, key, params, headers)
       case response.code
       when 400..429
-        error_data = response.body.merge({'http_code' => response.code})
+        error_data = response.body.merge({ 'http_code' => response.code })
         error = Errors[response.body['type']].new(error_data)
         raise error
-      when 500
-        raise APIError, "We had problem with Moyasar server."
+      when 500..504
+        raise APIError.new({ 'http_code' => response.code })
       end
       response
     end
