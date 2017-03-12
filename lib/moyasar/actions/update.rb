@@ -11,17 +11,10 @@ module Moyasar
       end
 
       module InstanceMethods
-
         def update(attrs = {})
           response = request(:put, update_url(id), params: attrs)
-
-          if response.code.to_i == 200
-            true
-          else
-            false
-          end
+          response.code.to_i == 200
         end
-
       end
 
     end
