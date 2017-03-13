@@ -20,7 +20,6 @@ module Moyasar
 
       module InstanceMethods
         def refund(attrs = {})
-          attrs[:amount] ||= amount
           self.class.perform_refund(id, attrs) unless id.nil?
         end
       end
