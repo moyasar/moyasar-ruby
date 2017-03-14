@@ -10,17 +10,15 @@ module Moyasar
 
       module ClassMethods
       end
-  
-      module InstanceMethods
 
+      module InstanceMethods
         def construct(attrs = {})
           attrs.each do |key, value|
             self.instance_variable_set("@#{key}".to_sym, value)
           end
         end
-
       end
-      
+
       module Initializer
         def initialize(attrs = {})
           # puts "construct ...#{self}  #{attrs}"

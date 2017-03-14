@@ -17,7 +17,7 @@ class MoyasarTest < Minitest::Test
 
   def test_request_should_throw_exception_if_key_is_nil
     stub_server_request(:payments, status: 401)
- 
+
     assert_raises Moyasar::AuthenticationError do
       Moyasar.request(:get, '/v1/payments')
     end
@@ -31,10 +31,10 @@ class MoyasarTest < Minitest::Test
 
     assert_equal 200, response.code
   end
- 
-  def test_request_should_raise_authentication_error_when_use_worng_api_key
+
+  def test_request_should_raise_authentication_error_when_use_wrong_api_key
     stub_server_request(:payments, key: 'WrongKey', status: 401)
-    
+
     assert_raises Moyasar::AuthenticationError do
       Moyasar.request(:get, '/v1/payments', key: 'WrongKey')
     end
