@@ -8,7 +8,7 @@ module Moyasar
       end
 
       module ClassMethods
-        # TODO should accept pagination and query options
+        # TODO: should accept pagination and query options ..
         def list(attrs = {})
           response = request(:get, list_url, params: attrs)
           response.body[resource_name].map { |resource| new(resource) }
