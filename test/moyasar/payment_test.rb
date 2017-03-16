@@ -34,8 +34,8 @@ class PaymentTest < Minitest::Test
       Moyasar::Payment.create params
     end
 
-    assert_match /Validation Failed: amount must be greater than 99/, err.to_s
-    assert_match /Validation Failed: amount must be greater than 99/, err.message
+    assert_match (/Validation Failed: amount must be greater than 99/i), err.to_s
+    assert_match (/Validation Failed: amount must be greater than 99/i), err.message
   end
 
   def test_list_should_return_list_of_payment_objects
@@ -117,6 +117,6 @@ class PaymentTest < Minitest::Test
     end
     assert_equal 400, err.code
     assert_equal 'invalid_request_error', err.type
-    assert_match /failed payment can't be refuneded/, err
+    assert_match (/failed payment can't be refuneded/i), err
   end
 end
