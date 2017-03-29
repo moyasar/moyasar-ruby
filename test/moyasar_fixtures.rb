@@ -20,8 +20,9 @@ module MoyasarFixtures
   end
 
   def render_erb(file, data)
-    prepared_data = data.merge(data[:body])
-    prepared_data.delete('body')
+    body = data.delete(:body)
+    prepared_data = data.merge(body)
+    prepared_data.merge!(body[:source]) if body.has_key?(:source)
     namespace = OpenStruct.new(prepared_data)
 
     ERB.new(file).result(namespace.instance_eval { binding })

@@ -9,8 +9,8 @@ class PaymentTest < Minitest::Test
 
   def test_create_should_return_intiated_payment_for_sadad_source
     params = {
-      amount: 1000, currency: 'SAR', description: 'Test',
-      source: {type: 'sadad', username: 'u3041555Xolp'}
+      amount: 2500, currency: 'ERU', description: 'pashion goods',
+      source: { type: 'sadad', username: 'smart-merchant' }
     }
 
     stub_server_request(:payment, key: TEST_KEY, body: params, status: 201)
@@ -19,6 +19,11 @@ class PaymentTest < Minitest::Test
 
     assert_instance_of Moyasar::Payment, payment
     assert_equal 'initiated', payment.status
+    assert_equal payment.amount, params[:amount]
+    assert_equal payment.currency, params[:currency]
+    assert_equal payment.description, params[:description]
+    assert_equal payment.source.username, params[:source][:username]
+    assert_kind_of Moyasar::Sadad, payment.source
   end
 
   def test_create_with_amount_less_than_100_cent_should_raise_validation_errror
@@ -27,8 +32,8 @@ class PaymentTest < Minitest::Test
       source: {type: 'sadad', username: 'u3041555Xolp'}
     }
 
-    stub_server_request(:payment, key: TEST_KEY, body: params, status: 400)
-    # WebMock.allow_net_connect!
+    stub_server_request(:payment, key: TEST_KEY, body: params, status: 400,
+                        error_message: "Validation Failed", errors: { "amount" => ["must be greater than 99"] })
 
     err = assert_raises Moyasar::InvalidRequestError do
       Moyasar::Payment.create params
@@ -73,18 +78,14 @@ class PaymentTest < Minitest::Test
     id = '328f5dca-91ec-435d-b13f-86052a1d0f7b'
     original = Moyasar::Payment.find(id)
 
-    params = { refunded: original.amount }
+    params = { payment_status: 'refunded', refunded: original.amount }
     stub_server_request(:payment, key: TEST_KEY, body: params, status: 200)
-    refunded = Moyasar::Payment.refund(id)
+
+    refunded = Moyasar::Payment.refund(id, amount: params[:refunded])
 
     assert_instance_of Moyasar::Payment, refunded
-
-    # TODO: refactor stubs ..
-    # ===
-    # Give a succeeded payment and (real api call / fack stub),
-    # the following assertion should hold true.
-    # ===
-    # assert_equal original.amount, refunded.refunded
+    assert_equal 'refunded', refunded.status
+    assert_equal original.amount, refunded.refunded
   end
 
   def test_refund_should_accept_partial_refund_amounts
@@ -94,29 +95,26 @@ class PaymentTest < Minitest::Test
     original = Moyasar::Payment.find(id)
     half_refund = original.amount - (original.amount / 2)
 
-    params = { refunded: half_refund }
+    params = { payment_status: 'refunded', refunded: half_refund }
     stub_server_request(:payment, key: TEST_KEY, body: params, status: 200)
 
     refunded = Moyasar::Payment.refund(id)
 
     assert_instance_of Moyasar::Payment, refunded
-    # TODO: refactor stubs ..
-    # assert_equal refunded.refunded, half_refund
+    assert_equal 'refunded', refunded.status
+    assert_equal refunded.refunded, half_refund
   end
 
-  def xtest_refund_with_failed_payment_should_raise_invalid_request_error
-    # TODO: refactor stubs & improve ::Moyasar error reporting ..
-    # skip 'stubs need refactoring in order for this api error -and others- to be covered'
-
+  def test_refund_with_failed_payment_should_raise_invalid_request_error
     params = { status: 'failed' }
-    stub_server_request(:payment, key: TEST_KEY, body: params, status: 400)
+    stub_server_request(:payment, key: TEST_KEY, body: params, status: 400, error_message: "failed payment can't be refuneded")
 
     err = assert_raises Moyasar::InvalidRequestError do
       id = '328f5dca-91ec-435d-b13f-86052a1d0f7b'
       Moyasar::Payment.refund(id)
     end
-    assert_equal 400, err.code
+    assert_equal 400, err.http_code
     assert_equal 'invalid_request_error', err.type
-    assert_match (/failed payment can't be refuneded/i), err
+    assert_match (/failed payment can't be refuneded/i), err.to_s
   end
 end
