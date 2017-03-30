@@ -16,9 +16,9 @@ module Moyasar
 
     def ==(other)
       return unless other.is_a? Payment
-
-      [:id, :status, :amount, :fee, :currency, :invoice_id, :source, :refunded, :refunded_at, :ip,
-       :created_at, :updated_at].all? { |attr| self.send(attr) == other.send(attr) }
+      [:id, :status, :amount, :fee, :currency, :invoice_id, :source, :refunded, :refunded_at, :ip, :created_at, :updated_at].all? do |attr|
+        self.send(attr) == other.send(attr)
+      end
     end
 
     alias to_s inspect

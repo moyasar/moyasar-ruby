@@ -57,4 +57,30 @@ class InvoiceTest < Minitest::Test
     assert_equal new_description, after_update.description
   end
 
+  def test_eqaulity_check_holds_among_identical_invoices_only
+    id = '1b82356d-b5fd-46f8-bde9-3680d62f289a'
+
+    stub = stub_server_request(:invoice, key: TEST_KEY, status: 200)
+    invoice_one = Moyasar::Invoice.find(id)
+    remove_stub(stub)
+
+    stub_server_request(:invoice, key: TEST_KEY, status: 200)
+    invoice_two = Moyasar::Invoice.find(id)
+
+    assert_equal invoice_one, invoice_two
+  end
+
+  def test_eqaulity_check_differentiate_non_identical_invoice
+    id = '1b82356d-b5fd-46f8-bde9-3680d62f289a'
+
+    stub = stub_server_request(:invoice, key: TEST_KEY, status: 200)
+    invoice_one = Moyasar::Invoice.find(id)
+    remove_stub(stub)
+
+    params = { amount: 32000 }
+    stub_server_request(:invoice, key: TEST_KEY, body: params, status: 200)
+    invoice_two = Moyasar::Invoice.find(id)
+
+    refute_equal invoice_one, invoice_two
+  end
 end

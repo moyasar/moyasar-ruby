@@ -106,7 +106,7 @@ class PaymentTest < Minitest::Test
   end
 
   def test_refund_with_failed_payment_should_raise_invalid_request_error
-    params = { status: 'failed' }
+    params = { payment_status: 'failed' }
     stub_server_request(:payment, key: TEST_KEY, body: params, status: 400, error_message: "failed payment can't be refuneded")
 
     err = assert_raises Moyasar::InvalidRequestError do
@@ -116,5 +116,32 @@ class PaymentTest < Minitest::Test
     assert_equal 400, err.http_code
     assert_equal 'invalid_request_error', err.type
     assert_match (/failed payment can't be refuneded/i), err.to_s
+  end
+
+  def test_eqaulity_check_holds_among_identical_payments_only
+    id = '328f5dca-91ec-435d-b13f-86052a1d0f7b'
+
+    stub = stub_server_request(:payment, key: TEST_KEY, status: 200)
+    payment_one = Moyasar::Payment.find(id)
+    remove_stub(stub)
+
+    stub_server_request(:payment, key: TEST_KEY, status: 200)
+    payment_two = Moyasar::Payment.find(id)
+
+    assert_equal payment_one, payment_two
+  end
+
+  def test_eqaulity_check_differentiate_non_identical_payments
+    id = '328f5dca-91ec-435d-b13f-86052a1d0f7b'
+
+    stub = stub_server_request(:payment, key: TEST_KEY, status: 200)
+    payment_one = Moyasar::Payment.find(id)
+    remove_stub(stub)
+
+    params = { source: { username: 'another_user' } }
+    stub_server_request(:payment, key: TEST_KEY, body: params, status: 200)
+    payment_two = Moyasar::Payment.find(id)
+
+    refute_equal payment_one, payment_two
   end
 end
