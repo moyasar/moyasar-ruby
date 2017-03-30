@@ -26,8 +26,8 @@ module Moyasar
 
     class << self
 
-      def create(source:, amount:, currency: 'SAR', description: nil)
-        params = {amount: amount, currency: currency, description: description, source: source}
+      def create(source:, amount:, currency: 'SAR', description: nil, invoice_id: nil)
+        params = {amount: amount, currency: currency, description: description, source: source, invoice_id: invoice_id}
         super(params)
       end
 

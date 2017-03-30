@@ -43,6 +43,18 @@ class PaymentTest < Minitest::Test
     assert_match (/Validation Failed: amount must be greater than 99/i), err.message
   end
 
+  def test_create_payment_for_inovice_should_be_acceptable
+    stub_server_request(:invoices, key: TEST_KEY, status: 200)
+    id = Moyasar::Invoice.list.first.id
+
+    params = { amount: 3000, invoice_id: id, source: { type: 'sadad', username: 'u3041555Xolp' } }
+    stub_server_request(:payment, key: TEST_KEY, body: params, status: 201)
+
+    payment = Moyasar::Payment.create params
+    assert_instance_of Moyasar::Payment, payment
+    assert_equal payment.invoice_id, params[:invoice_id]
+  end
+
   def test_list_should_return_list_of_payment_objects
     stub_server_request(:payments, key: TEST_KEY, status: 200)
 
