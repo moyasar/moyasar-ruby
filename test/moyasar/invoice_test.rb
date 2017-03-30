@@ -70,7 +70,7 @@ class InvoiceTest < Minitest::Test
     assert_equal invoice_one, invoice_two
   end
 
-  def test_eqaulity_check_differentiate_non_identical_invoice
+  def test_eqaulity_check_differentiate_non_identical_invoices
     id = '1b82356d-b5fd-46f8-bde9-3680d62f289a'
 
     stub = stub_server_request(:invoice, key: TEST_KEY, status: 200)
@@ -82,5 +82,6 @@ class InvoiceTest < Minitest::Test
     invoice_two = Moyasar::Invoice.find(id)
 
     refute_equal invoice_one, invoice_two
+    refute_equal invoice_one, Object.new
   end
 end

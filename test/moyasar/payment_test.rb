@@ -143,5 +143,6 @@ class PaymentTest < Minitest::Test
     payment_two = Moyasar::Payment.find(id)
 
     refute_equal payment_one, payment_two
+    refute_equal payment_one, Object.new
   end
 end

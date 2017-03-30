@@ -56,5 +56,4 @@ class MoyasarTest < Minitest::Test
 
     assert_instance_of Hash, response.body
   end
-
 end
