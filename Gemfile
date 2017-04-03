@@ -4,9 +4,11 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem 'webmock'
   gem 'minitest-reporters'
-
   # gem 'guard'
   # gem 'guard-minitest'
+end
+
+group :development, :test do
+  gem 'webmock'
 end

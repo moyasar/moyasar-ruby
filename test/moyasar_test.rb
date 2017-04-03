@@ -17,6 +17,7 @@ class MoyasarTest < Minitest::Test
 
   def test_request_should_throw_exception_if_key_is_nil
     stub_server_request(:payments, status: 401)
+    Moyasar.api_key = nil
 
     assert_raises Moyasar::AuthenticationError do
       Moyasar.request(:get, '/v1/payments')
@@ -55,5 +56,4 @@ class MoyasarTest < Minitest::Test
 
     assert_instance_of Hash, response.body
   end
-
 end

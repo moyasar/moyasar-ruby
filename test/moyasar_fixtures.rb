@@ -18,10 +18,13 @@ module MoyasarFixtures
     file = File.read fixture_file(filename)
     YAML.load render_erb(file, data)
   end
-  
+
   def render_erb(file, data)
-    namespace = OpenStruct.new(data)
+    body = data.delete(:body)
+    prepared_data = data.merge(body)
+    prepared_data.merge!(body[:source]) if body.has_key?(:source)
+    namespace = OpenStruct.new(prepared_data)
+
     ERB.new(file).result(namespace.instance_eval { binding })
   end
-
 end
