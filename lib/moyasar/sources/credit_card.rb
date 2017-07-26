@@ -1,6 +1,6 @@
 module Moyasar
   class CreditCard < Source
-    attr_reader :company, :name, :number, :message
+    attr_reader :company, :name, :number, :message, :transaction_url
 
     def ==(other)
       return unless other.instance_of? CreditCard
