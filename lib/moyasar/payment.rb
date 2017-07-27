@@ -3,7 +3,7 @@ module Moyasar
     include Moyasar::Actions::Refund
 
     attr_reader :id, :status, :amount, :amount_format, :fee, :fee_format, :currency, :invoice_id,
-                :source, :refunded, :refunded_at, :ip, :created_at, :updated_at
+                :source, :refunded, :refunded_at, :ip, :created_at, :updated_at, :callback_url
     attr_accessor :description
 
     def initialize(attrs = {})
@@ -26,8 +26,8 @@ module Moyasar
 
     class << self
 
-      def create(source:, amount:, currency: 'SAR', description: nil, invoice_id: nil)
-        params = {amount: amount, currency: currency, description: description, source: source, invoice_id: invoice_id}
+      def create(source:, amount:, currency: 'SAR', description: nil, invoice_id: nil, callback_url: nil)
+        params = {amount: amount, currency: currency, description: description, source: source, invoice_id: invoice_id, callback_url: callback_url}
         super(params)
       end
 
