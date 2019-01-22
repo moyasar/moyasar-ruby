@@ -6,6 +6,7 @@ module Moyasar
     include Moyasar::Actions::List
     include Moyasar::Actions::Fetch
     include Moyasar::Actions::Update
+    include Moyasar::Actions::Cancel
 
     class << self
 
@@ -40,6 +41,10 @@ module Moyasar
 
       def refund_url(id)
         "#{resource_url}/#{id}/refund"
+      end
+
+      def cancel_url(id)
+        "#{resource_url}/#{id}/cancel"
       end
 
     end
