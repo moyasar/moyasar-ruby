@@ -30,7 +30,7 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Moyasar::Invoice, invoices.first
   end
 
-  def test_find_should_return_payemnt_object_if_id_is_correct
+  def test_find_should_return_invoice_object_if_id_is_correct
     stub_server_request(:invoice, key: TEST_KEY, status: 200)
 
     id = '1b82356d-b5fd-46f8-bde9-3680d62f289a'
@@ -55,6 +55,18 @@ class InvoiceTest < Minitest::Test
 
     assert_equal true, updated
     assert_equal new_description, after_update.description
+  end
+
+  def test_cancel_should_return_invoice_object_if_id_is_correct
+    stub_server_request(:invoice, key: TEST_KEY, status: 200)
+    id = '002fa41a-85d7-4873-8487-b02f9d697ffd'
+    invoice = Moyasar::Invoice.find(id)
+
+    stub_server_request(:invoice, key: TEST_KEY, status: 200)
+    canceled = invoice.cancel
+
+    assert_instance_of Moyasar::Invoice, canceled
+    assert_equal 'canceled','canceled', canceled.status
   end
 
   def test_eqaulity_check_holds_among_identical_invoices_only
