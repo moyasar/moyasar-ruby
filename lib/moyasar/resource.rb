@@ -2,7 +2,6 @@ module Moyasar
   class Resource
     include Moyasar::Actions::Request
     include Moyasar::Actions::Construct
-    include Moyasar::Actions::Create
     include Moyasar::Actions::List
     include Moyasar::Actions::Fetch
     include Moyasar::Actions::Update

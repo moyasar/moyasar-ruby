@@ -1,5 +1,7 @@
 module Moyasar
   class Invoice < Resource
+    include Moyasar::Actions::Create
+
     attr_reader :id, :status, :amount_format, :url, :payments, :created_at, :updated_at
     attr_accessor :description, :amount, :currency
 

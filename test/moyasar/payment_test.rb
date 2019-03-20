@@ -7,54 +7,6 @@ class PaymentTest < Minitest::Test
     Moyasar.api_key = TEST_KEY
   end
 
-  def test_create_should_return_intiated_payment_for_sadad_source
-    params = {
-      amount: 2500, currency: 'ERU', description: 'pashion goods',
-      source: { type: 'sadad', username: 'smart-merchant' }
-    }
-
-    stub_server_request(:payment, key: TEST_KEY, body: params, status: 201)
-
-    payment = Moyasar::Payment.create params
-
-    assert_instance_of Moyasar::Payment, payment
-    assert_equal 'initiated', payment.status
-    assert_equal payment.amount, params[:amount]
-    assert_equal payment.currency, params[:currency]
-    assert_equal payment.description, params[:description]
-    assert_equal payment.source.username, params[:source][:username]
-    assert_kind_of Moyasar::Sadad, payment.source
-  end
-
-  def test_create_with_amount_less_than_100_cent_should_raise_validation_errror
-    params = {
-      amount: 90, currency: 'SAR', description: 'Test',
-      source: {type: 'sadad', username: 'u3041555Xolp'}
-    }
-
-    stub_server_request(:payment, key: TEST_KEY, body: params, status: 400,
-                        error_message: "Validation Failed", errors: { "amount" => ["must be greater than 99"] })
-
-    err = assert_raises Moyasar::InvalidRequestError do
-      Moyasar::Payment.create params
-    end
-
-    assert_match (/Validation Failed: amount must be greater than 99/i), err.to_s
-    assert_match (/Validation Failed: amount must be greater than 99/i), err.message
-  end
-
-  def test_create_payment_for_inovice_should_be_acceptable
-    stub_server_request(:invoices, key: TEST_KEY, status: 200)
-    id = Moyasar::Invoice.list.first.id
-
-    params = { amount: 3000, invoice_id: id, source: { type: 'sadad', username: 'u3041555Xolp' } }
-    stub_server_request(:payment, key: TEST_KEY, body: params, status: 201)
-
-    payment = Moyasar::Payment.create params
-    assert_instance_of Moyasar::Payment, payment
-    assert_equal payment.invoice_id, params[:invoice_id]
-  end
-
   def test_list_should_return_list_of_payment_objects
     stub_server_request(:payments, key: TEST_KEY, status: 200)
 
