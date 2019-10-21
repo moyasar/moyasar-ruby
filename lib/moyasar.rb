@@ -15,6 +15,7 @@ require 'moyasar/actions/update'
 require 'moyasar/actions/refund'
 require 'moyasar/actions/cancel'
 require 'moyasar/actions/capture'
+require 'moyasar/actions/void'
 
 require 'moyasar/source'
 require 'moyasar/resource'

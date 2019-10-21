@@ -116,6 +116,44 @@ class PaymentTest < Minitest::Test
   end
 
   def test_capture_with_initiated_payment_should_raise_invalid_request_error
+    params = { payment_status: 'initiated' }
+    stub_server_request(:payment, key: TEST_KEY, body: params, status: 400, error_message: "initiated payment can't be captured")
+
+    err = assert_raises Moyasar::InvalidRequestError do
+      id = '328f5dca-91ec-435d-b13f-86052a1d0f7b'
+      Moyasar::Payment.capture(id)
+    end
+    assert_equal 400, err.http_code
+    assert_equal 'invalid_request_error', err.type
+    assert_match (/initiated payment can't be captured/i), err.to_s
+  end
+
+  def test_void_should_return_payemnt_object_if_id_is_correct
+    stub_server_request(:payment, key: TEST_KEY, status: 200)
+
+    id = '328f5dca-91ec-435d-b13f-86052a1d0f7b'
+    payment = Moyasar::Payment.find(id)
+
+    params = { payment_status: 'voided' }
+    stub_server_request(:payment, key: TEST_KEY, body: params, status: 200)
+
+    voided = payment.void()
+
+    assert_equal id, voided.id
+    assert_equal 'voided', voided.status
+  end
+
+  def test_void_with_failed_payment_should_raise_invalid_request_error
+    params = { payment_status: 'failed' }
+    stub_server_request(:payment, key: TEST_KEY, body: params, status: 400, error_message: "failed payment can't be voided")
+
+    err = assert_raises Moyasar::InvalidRequestError do
+      id = '328f5dca-91ec-435d-b13f-86052a1d0f7b'
+      Moyasar::Payment.void(id)
+    end
+    assert_equal 400, err.http_code
+    assert_equal 'invalid_request_error', err.type
+    assert_match (/failed payment can't be voided/i), err.to_s
   end
 
   def test_eqaulity_check_holds_among_identical_payments_only

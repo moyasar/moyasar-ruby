@@ -50,6 +50,10 @@ module Moyasar
         "#{resource_url}/#{id}/capture"
       end
 
+      def void_url(id)
+        "#{resource_url}/#{id}/void"        
+      end
+
     end
 
     private

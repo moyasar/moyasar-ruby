@@ -2,6 +2,7 @@ module Moyasar
   class Payment < Resource
     include Moyasar::Actions::Refund
     include Moyasar::Actions::Capture
+    include Moyasar::Actions::Void
 
     attr_reader :id, :status, :amount, :amount_format, :fee, :fee_format, :currency, :invoice_id,
                 :source, :refunded, :refunded_at, :ip, :created_at, :updated_at, :callback_url,
