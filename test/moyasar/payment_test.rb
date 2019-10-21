@@ -82,6 +82,42 @@ class PaymentTest < Minitest::Test
     assert_match (/failed payment can't be refuneded/i), err.to_s
   end
 
+  def test_capture_should_capture_whole_authorized_amount_by_default
+    stub_server_request(:payment, key: TEST_KEY, status: 200)
+
+    id = '328f5dca-91ec-435d-b13f-86052a1d0f7b'
+    authorized = Moyasar::Payment.find(id)
+
+    params = { payment_status: 'captured', captured: authorized.amount }
+    stub_server_request(:payment, key: TEST_KEY, body: params, status: 200)
+
+    captured = authorized.capture(amount: params[:captured])
+
+    assert_instance_of Moyasar::Payment, captured
+    assert_equal 'captured', captured.status
+    assert_equal authorized.amount, captured.captured
+  end
+
+  def test_capture_should_capture_part_of_authorized_amount
+    stub_server_request(:payment, key: TEST_KEY, status: 200)
+
+    id = '328f5dca-91ec-435d-b13f-86052a1d0f7b'
+    authorized = Moyasar::Payment.find(id)
+    half_authorized = authorized.amount - (authorized.amount / 2)
+
+    params = { payment_status: 'captured', captured: half_authorized }
+    stub_server_request(:payment, key: TEST_KEY, body: params, status: 200)
+
+    captured = authorized.capture()
+
+    assert_instance_of Moyasar::Payment, captured
+    assert_equal 'captured', captured.status
+    assert_equal captured.captured, half_authorized
+  end
+
+  def test_capture_with_initiated_payment_should_raise_invalid_request_error
+  end
+
   def test_eqaulity_check_holds_among_identical_payments_only
     id = '328f5dca-91ec-435d-b13f-86052a1d0f7b'
 

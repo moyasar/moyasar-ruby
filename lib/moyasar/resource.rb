@@ -46,6 +46,10 @@ module Moyasar
         "#{resource_url}/#{id}/cancel"
       end
 
+      def capture_url(id)
+        "#{resource_url}/#{id}/capture"
+      end
+
     end
 
     private
