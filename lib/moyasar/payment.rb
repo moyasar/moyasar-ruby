@@ -1,9 +1,11 @@
 module Moyasar
   class Payment < Resource
     include Moyasar::Actions::Refund
+    include Moyasar::Actions::Capture
 
     attr_reader :id, :status, :amount, :amount_format, :fee, :fee_format, :currency, :invoice_id,
-                :source, :refunded, :refunded_at, :ip, :created_at, :updated_at, :callback_url
+                :source, :refunded, :refunded_at, :ip, :created_at, :updated_at, :callback_url,
+                :captured, :captured_at, :voided_at
     attr_accessor :description
 
     def initialize(attrs = {})
@@ -17,7 +19,7 @@ module Moyasar
     def ==(other)
       return false unless other.is_a? Payment
 
-      [:id, :status, :amount, :fee, :currency, :invoice_id, :source, :refunded, :refunded_at, :ip, :created_at, :updated_at].all? do |attr|
+      [:id, :status, :amount, :fee, :currency, :invoice_id, :source, :refunded, :refunded_at, :captured, :captured_at, :voided_at, :ip, :created_at, :updated_at].all? do |attr|
         self.send(attr) == other.send(attr)
       end
     end
