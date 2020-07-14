@@ -6,7 +6,9 @@ module Moyasar
       def build(type, attrs = {})
         sources = {
           'sadad'      => Sadad,
-          'creditcard' => CreditCard
+          'creditcard' => CreditCard,
+          'applepay'   => ApplePay,
+          'stcpay'     => STCPay,
         }
 
         sources[type].new(attrs)

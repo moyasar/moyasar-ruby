@@ -24,6 +24,8 @@ require 'moyasar/invoice'
 
 require 'moyasar/sources/sadad'
 require 'moyasar/sources/credit_card'
+require 'moyasar/sources/apple_pay'
+require 'moyasar/sources/stc_pay'
 
 require 'moyasar/errors/moyasar_error'
 require 'moyasar/errors/authentication_error'
