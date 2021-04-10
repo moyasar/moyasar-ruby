@@ -5,7 +5,7 @@ module Moyasar
     include Moyasar::Actions::Void
 
     attr_reader :id, :status, :amount, :amount_format, :fee, :fee_format, :currency, :invoice_id,
-                :source, :refunded, :refunded_at, :ip, :created_at, :updated_at, :callback_url,
+                :source, :refunded, :refunded_at, :ip, :metadata, :created_at, :updated_at, :callback_url,
                 :captured, :captured_at, :voided_at
     attr_accessor :description
 
