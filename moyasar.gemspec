@@ -6,7 +6,7 @@ require 'moyasar/version'
 Gem::Specification.new do |spec|
   spec.name          = 'moyasar'
   spec.version       = Moyasar::VERSION
-  spec.authors       = ['Abdulaziz AlShetwi']
+  spec.authors       = ['Abdulaziz AlShetwi', 'Moyasar Dev Team']
   spec.email         = ['developers@moyasar.com']
 
   spec.summary       = %q{Ruby wrapper library for Moyasar Payment Service}
