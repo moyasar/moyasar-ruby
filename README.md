@@ -1,3 +1,5 @@
+# This project has been archived and is no longer maintained.
+
 # moyasar-ruby
 
 [![Gem Version](https://badge.fury.io/rb/moyasar.svg)](http://badge.fury.io/rb/moyasar)
